@@ -1,6 +1,8 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router';
 import HomeLayouts from '../HomeLayouts/HomeLayouts';
+import Home from '../Pages/Home';
+import SkillDetails from '../Pages/SkillDetails';
 
 const router = createBrowserRouter(
     [
@@ -9,8 +11,14 @@ const router = createBrowserRouter(
             element: <HomeLayouts></HomeLayouts>,
             children:[
                 {
-                    path: 'test',
-                    element: <h2>this is child</h2>
+                    index: true,
+                    element: <Home></Home>
+                },
+                {
+                    path: '/skill-details/:id',
+                    element:<SkillDetails></SkillDetails>,
+                    loader: ()=>fetch("/data.json")
+                    
                 }
             ]
         }

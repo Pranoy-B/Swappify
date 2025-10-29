@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
+import { Outlet } from "react-router";
 
 const HomeLayouts = () => {
   return (
@@ -10,7 +11,10 @@ const HomeLayouts = () => {
         </header>
 
 
-        <main className="flex-grow"></main>
+
+        <main className="flex-grow">
+            <Outlet></Outlet>
+        </main>
 
 
         <footer>
