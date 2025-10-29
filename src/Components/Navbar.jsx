@@ -38,8 +38,9 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <button className="text-white px-3 rounded-sm py-2 font-semibold text-xl btn btn-ghost">Login</button>
-      </div>
+        <NavLink to='/login' className="text-white px-3 rounded-sm py-2 font-semibold text-xl btn btn-ghost">Login</NavLink>
+        {/* <Navlink to='/login' className="text-white px-3 rounded-sm py-2 font-semibold text-xl btn btn-ghost">Login</Navlink> */}
+      </div>  
     </div>
   );
 };
