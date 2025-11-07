@@ -16,7 +16,6 @@ const Navbar = () => {
         alert(errorMessage);
       });
   };
-  console.log(user)
 
   return (
     <div className="navbar bg-[#468faf] shadow-sm">

@@ -1,13 +1,14 @@
 import React, { use, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Login = () => {
 
   const {logIn} = use(AuthContext)
   const navigate = useNavigate()
-
+  const location = useLocation()
+  const [error,setError] = useState("")
   const handleLogIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -17,12 +18,12 @@ const Login = () => {
     logIn(email,password)
     .then(result=>{
       const user = result.user;
-      navigate('/')
+      navigate(`${location.state? location.state : '/' }`)
       
     })
     .catch((error)=>{
       const errorMessage = error.message
-      alert(errorMessage)
+      setError(errorMessage)
     })
   }
 
@@ -55,9 +56,11 @@ const Login = () => {
             required
             className="border border-gray-300 rounded-md px-4 py-2  focus:ring-2 focus:ring-[#468faf]"
           />
-          <button to='/' className="bg-[#468faf] text-center text-white py-2 rounded-md hover:bg-[#367d91] transition-colors duration-200">
+          <button className="bg-[#468faf] text-center text-white py-2 rounded-md hover:bg-[#367d91] transition-colors duration-200">
             Let's Go
           </button>
+          <p>{error && <p className="text-red-700">{error}</p>}</p>
+          <p className="text-blue-500">Forgot Password!</p>
           <p>New Here! <NavLink to='/register' className="text-[#468faf]">Register Now</NavLink></p>
         </form>
       </div>
