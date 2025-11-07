@@ -1,30 +1,34 @@
-import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import React, { use } from "react";
+import  { Toaster } from "react-hot-toast";
+import { NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    photoURL: "",
-    email: "",
-    password: "",
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
+  const {createUser,setUser} = use(AuthContext)
+  const navigate = useNavigate()
+  
+  const handleRegister = (e) => {
     e.preventDefault();
-    toast.success("Registered successfully!", {
-      style: {
-        borderRadius: "10px",
-        background: "#468faf",
-        color: "#fff",
-      },
-    });
-    setFormData({ name: "", photoURL: "", email: "", password: "" });
-  };
+    const form = e.target;
+    const name = form.name.value
+    const email = form.email.value
+    const photoURL = form.photoURL.value
+    const password = form.password.value
+    console.log(name,email,photoURL,password)
+    createUser(email,password)
+    .then((result)=>{
+      const user = result.user
+      setUser(user)
+      navigate("/login")
+      
+    })
+    .catch((error)=>{
+      const errorCode = error.code
+      const errorMessage = error.message
+      alert(errorCode, errorMessage)
+    })
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#839ffd] via-white to-[#839ffd] px-4">
@@ -36,13 +40,12 @@ const Register = () => {
         <h2 className="text-3xl font-bold text-[#468faf] mb-6 text-center">
           Register
         </h2>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form onSubmit={handleRegister} className="flex flex-col gap-4" >
           <input
             type="text"
             name="name"
             placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
+            
             required
             className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#468faf]"
           />
@@ -50,8 +53,7 @@ const Register = () => {
             type="text"
             name="photoURL"
             placeholder="Photo URL"
-            value={formData.photoURL}
-            onChange={handleChange}
+            
             required
             className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#468faf]"
           />
@@ -59,8 +61,7 @@ const Register = () => {
             type="email"
             name="email"
             placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
+           
             required
             className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#468faf]"
           />
@@ -68,14 +69,14 @@ const Register = () => {
             type="password"
             name="password"
             placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
+            
             required
             className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#468faf]"
           />
-          <button className="bg-[#468faf] text-white py-2 rounded-md hover:bg-[#367d91] transition-colors duration-200">
+          <button to="/login" className="bg-[#468faf] text-white py-2 rounded-md hover:bg-[#367d91] transition-colors duration-200">
             Submit
           </button>
+          <p>Allready have an account! <NavLink  to='/login' className="text-[#468faf]">Login Now</NavLink></p>
         </form>
       </div>
     </div>

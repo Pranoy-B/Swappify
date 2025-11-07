@@ -5,6 +5,7 @@ import Home from "../Pages/Home";
 import SkillDetails from "../Pages/SkillDetails";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import PrivateRoute from "../Components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/skill-details/:id",
-        element: <SkillDetails></SkillDetails>,
+        element: <PrivateRoute>
+          <SkillDetails></SkillDetails>
+        </PrivateRoute>,
         loader: () => fetch("/data.json"),
       },
       {

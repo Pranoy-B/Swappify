@@ -1,7 +1,23 @@
-import React from "react";
+import React, { use } from "react";
 import { NavLink } from "react-router";
+import { AuthContext } from "../provider/AuthProvider";
+import { BiLogOut } from "react-icons/bi";
 
 const Navbar = () => {
+  const { user, logOut } = use(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        alert("Logged Out Successfully");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
+  };
+  console.log(user)
+
   return (
     <div className="navbar bg-[#468faf] shadow-sm">
       <div className="navbar-start">
@@ -30,17 +46,37 @@ const Navbar = () => {
             <NavLink>Home</NavLink>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl text-white font-semibold">Swappify</a>
+        <a className="btn btn-ghost text-xl text-white font-semibold">
+          Swappify
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <NavLink className={'text-xl font-semibold text-gray-200'}>Home</NavLink>
+          <NavLink className={"text-xl font-semibold text-gray-200"}>
+            Home
+          </NavLink>
         </ul>
       </div>
       <div className="navbar-end">
-        <NavLink to='/login' className="text-white px-3 rounded-sm py-2 font-semibold text-xl btn btn-ghost">Login</NavLink>
+        {user ? (
+          <NavLink
+            to="/"
+            onClick={handleLogOut}
+            className="text-white px-3 rounded-sm py-2 font-semibold text-xl btn btn-ghost"
+          >
+            Logout
+          </NavLink>
+        ) : (
+          <NavLink
+            to="/login"
+            className="text-white px-3 rounded-sm py-2 font-semibold text-xl btn btn-ghost"
+          >
+            Login
+          </NavLink>
+        )}
         {/* <Navlink to='/login' className="text-white px-3 rounded-sm py-2 font-semibold text-xl btn btn-ghost">Login</Navlink> */}
-      </div>  
+      </div>
+      
     </div>
   );
 };
