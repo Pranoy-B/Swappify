@@ -5,7 +5,7 @@ import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
 
-  const {createUser,setUser} = use(AuthContext)
+  const {createUser,setUser, updateUser} = use(AuthContext)
   const navigate = useNavigate()
   const [error,setError] = useState("")
 
@@ -15,7 +15,7 @@ const Register = () => {
     const form = e.target;
     const name = form.name.value
     const email = form.email.value
-    const photoURL = form.photoURL.value
+    const photo = form.photoURL.value
     const password = form.password.value
 
     if (!/[A-Z]/.test(password)) {
@@ -31,11 +31,18 @@ const Register = () => {
       return;
     }
     setError("")
-    console.log(name,email,photoURL,password)
+    
     createUser(email,password)
     .then((result)=>{
       const user = result.user
-      setUser(user)
+      updateUser({displayName: name, photoURL:photo}).then(() => {
+         setUser({...user, displayName: name, photoURL:photo})
+
+      })
+      .catch((error)=>{
+        console.log(error)
+        setUser(user)
+      })
       navigate("/login")
       
     })

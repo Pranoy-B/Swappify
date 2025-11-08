@@ -2,9 +2,11 @@ import React, { use } from "react";
 import { NavLink } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 import { BiLogOut } from "react-icons/bi";
+import { BsPersonCircle } from "react-icons/bs";
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
+  console.log("user here:", user);
 
   const handleLogOut = () => {
     logOut()
@@ -56,7 +58,17 @@ const Navbar = () => {
           </NavLink>
         </ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end items-center ">
+        {user && user.photoURL ? (
+          <img
+            src={user.photoURL}
+            alt={user.displayName || "User Avatar"}
+             title={user.displayName || "User"}
+            className=" w-8 h-8 rounded-full border-2 border-white object-cover"
+          />
+        ) : (
+          <BsPersonCircle size={28} color="white" />
+        )}
         {user ? (
           <NavLink
             to="/"
@@ -75,7 +87,6 @@ const Navbar = () => {
         )}
         {/* <Navlink to='/login' className="text-white px-3 rounded-sm py-2 font-semibold text-xl btn btn-ghost">Login</Navlink> */}
       </div>
-      
     </div>
   );
 };

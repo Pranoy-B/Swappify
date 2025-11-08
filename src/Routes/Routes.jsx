@@ -6,6 +6,8 @@ import SkillDetails from "../Pages/SkillDetails";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import PrivateRoute from "../Components/PrivateRoute";
+import ResetPassword from '../Pages/ResetPassword'
+import PageNotFound from "../Pages/PageNotFound";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
       {
         path:"/register",
         element: <Register></Register>
+      },
+      {
+        path: "/forget-password",
+        element: <ResetPassword></ResetPassword>
+      },
+      {
+        path: "/*",
+        element: <PageNotFound></PageNotFound>
       }
     ],
   }

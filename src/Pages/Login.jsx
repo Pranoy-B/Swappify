@@ -9,6 +9,8 @@ const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [error,setError] = useState("")
+  const [email,setEmail] = useState("")
+
   const handleLogIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -27,6 +29,9 @@ const Login = () => {
     })
   }
 
+  const handleForgotPassword = () => {
+    navigate("/forget-password", { state: { email } });
+  };
 
 
   return (
@@ -60,7 +65,7 @@ const Login = () => {
             Let's Go
           </button>
           <p>{error && <p className="text-red-700">{error}</p>}</p>
-          <p className="text-blue-500">Forgot Password!</p>
+          <p  onClick={handleForgotPassword} className="text-blue-500">Forgot Password!</p>
           <p>New Here! <NavLink to='/register' className="text-[#468faf]">Register Now</NavLink></p>
         </form>
       </div>
