@@ -58,7 +58,7 @@ const Navbar = () => {
                 Logout
               </button>
             ) : (
-              <NavLink to="/login" className="text-lg font-medium">
+              <NavLink to="/login" className="text-lg hidden font-medium">
                 Login
               </NavLink>
             )}
