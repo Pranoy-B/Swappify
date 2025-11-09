@@ -10,6 +10,7 @@ import ResetPassword from '../Pages/ResetPassword'
 import PageNotFound from "../Pages/PageNotFound";
 import MyProfile from "../Pages/MyProfile";
 import UpdateProfile from "../Pages/UpdateProfile";
+import Loading from "../Pages/loading";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
           <SkillDetails></SkillDetails>
         </PrivateRoute>,
         loader: () => fetch("/data.json"),
+        hydrateFallbackElement: <Loading></Loading>
       },
       {
         path: "/login",
@@ -48,7 +50,7 @@ const router = createBrowserRouter([
         element: <UpdateProfile></UpdateProfile>
       },
       {
-        path: "/*",
+        path: "*",
         element: <PageNotFound></PageNotFound>
       }
     ],

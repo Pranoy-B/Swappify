@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCAypm5DQ3vo-GA0QPRWNeYK3VhaZ1sfQY",
-  authDomain: "swappify-92f00.firebaseapp.com",
-  projectId: "swappify-92f00",
-  storageBucket: "swappify-92f00.firebasestorage.app",
-  messagingSenderId: "62426123615",
-  appId: "1:62426123615:web:8da8b60ebc6c671bf2baea"
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId
 };
 
 // Initialize Firebase
