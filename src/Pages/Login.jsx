@@ -2,46 +2,49 @@ import React, { use, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { NavLink, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
-
-  const {logIn} = use(AuthContext)
-  const navigate = useNavigate()
-  const location = useLocation()
-  const [error,setError] = useState("")
-  const [email,setEmail] = useState("")
+  const { logIn, GoogleLogin } = use(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
-  import("aos").then(AOS => {
-    AOS.init({ duration: 800 });
-  });
-}, []);
+    import("aos").then((AOS) => {
+      AOS.init({ duration: 800 });
+    });
+  }, []);
+
+  const handleGoogleLogin = () => {
+    GoogleLogin()
+    navigate("/")
+  }
 
   const handleLogIn = (e) => {
     e.preventDefault();
     const form = e.target;
-    const email = form.email.value
-    const password = form.password.value
+    const email = form.email.value;
+    const password = form.password.value;
 
-    logIn(email,password)
-    .then(result=>{
-      const user = result.user;
-      navigate(`${location.state? location.state : '/' }`)
-      
-    })
-    .catch((error)=>{
-      const errorMessage = error.message
-      setError(errorMessage)
-    })
-  }
+    logIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        navigate(`${location.state ? location.state : "/"}`);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setError(errorMessage);
+      });
+  };
 
   const handleForgotPassword = () => {
     navigate("/forget-password", { state: { email } });
   };
 
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#839ffd] via-white to-[#839ffd] px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#839ffd] via-white to-[#839ffd] px-4">
       <Toaster position="top-center" reverseOrder={false} />
       <div
         className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
@@ -55,7 +58,6 @@ const Login = () => {
             type="email"
             name="email"
             placeholder="Email"
-            
             required
             className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#468faf]"
           />
@@ -63,7 +65,6 @@ const Login = () => {
             type="password"
             name="password"
             placeholder="Password"
-            
             required
             className="border border-gray-300 rounded-md px-4 py-2  focus:ring-2 focus:ring-[#468faf]"
           />
@@ -71,10 +72,21 @@ const Login = () => {
             Let's Go
           </button>
           <p>{error && <p className="text-red-700">{error}</p>}</p>
-          <p  onClick={handleForgotPassword} className="text-blue-500">Forgot Password!</p>
-          <p>New Here! <NavLink to='/register' className="text-[#468faf]">Register Now</NavLink></p>
+          <p onClick={handleForgotPassword} className="text-blue-500">
+            Forgot Password!
+          </p>
+          <p>
+            New Here!{" "}
+            <NavLink to="/register" className="text-[#468faf]">
+              Register Now
+            </NavLink>
+          </p>
         </form>
       </div>
+      <button onClick={handleGoogleLogin} className="bg-white flex gap-2 flex-row justify-center items-center px-4 text-[#468faf] font-semibold py-2 rounded-md hover:bg-gray-200 transition-colors duration-200">
+        <FcGoogle />
+         Login With Google
+      </button>
     </div>
   );
 };
