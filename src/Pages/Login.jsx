@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { NavLink, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
@@ -10,6 +10,12 @@ const Login = () => {
   const location = useLocation()
   const [error,setError] = useState("")
   const [email,setEmail] = useState("")
+
+  useEffect(() => {
+  import("aos").then(AOS => {
+    AOS.init({ duration: 800 });
+  });
+}, []);
 
   const handleLogIn = (e) => {
     e.preventDefault();

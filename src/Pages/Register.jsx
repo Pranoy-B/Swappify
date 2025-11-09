@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import  { Toaster } from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
@@ -50,6 +50,12 @@ const Register = () => {
       setError(error.message)
     })
   }
+
+  useEffect(() => {
+      import("aos").then((AOS) => {
+        AOS.init({ duration: 800 });
+      });
+    }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#839ffd] via-white to-[#839ffd] px-4">

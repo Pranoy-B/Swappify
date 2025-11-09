@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 const ForgetPassword = () => {
@@ -11,6 +11,11 @@ const ForgetPassword = () => {
 
     window.location.href = "https://mail.google.com";
   };
+  useEffect(() => {
+      import("aos").then((AOS) => {
+        AOS.init({ duration: 800 });
+      });
+    }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#839ffd] via-white to-[#839ffd] px-4">

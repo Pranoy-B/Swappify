@@ -8,6 +8,8 @@ import Register from "../Pages/Register";
 import PrivateRoute from "../Components/PrivateRoute";
 import ResetPassword from '../Pages/ResetPassword'
 import PageNotFound from "../Pages/PageNotFound";
+import MyProfile from "../Pages/MyProfile";
+import UpdateProfile from "../Pages/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
       {
         path: "/forget-password",
         element: <ResetPassword></ResetPassword>
+      },
+      {
+        path: "/my-profile",
+        element: <MyProfile></MyProfile>
+      },
+      {
+        path: "/update-profile",
+        element: <UpdateProfile></UpdateProfile>
       },
       {
         path: "/*",
